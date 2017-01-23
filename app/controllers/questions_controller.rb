@@ -28,7 +28,9 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
-
+    4.times do
+      option = @question.options.build
+    end if @question.options.blank?
     respond_to do |format|
       if @question.save
         format.html { redirect_to edit_assessment_path(@question.assessment_id), notice: 'Question was successfully created.' }
