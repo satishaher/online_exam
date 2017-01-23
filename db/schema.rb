@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170122101206) do
+ActiveRecord::Schema.define(version: 20170123093734) do
+
+  create_table "assessments", force: true do |t|
+    t.string   "name"
+    t.integer  "weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+# Could not dump table "options" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+  create_table "questions", force: true do |t|
+    t.string   "text"
+    t.integer  "rating",        default: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "assessment_id"
+  end
 
   create_table "users", force: true do |t|
     t.string   "user_name"

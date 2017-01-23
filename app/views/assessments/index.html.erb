@@ -1,4 +1,4 @@
-<%- model_class = User -%>
+<%- model_class = Assessment -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
@@ -6,28 +6,26 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:user_name) %></th>
-      <th><%= model_class.human_attribute_name(:first_name) %></th>
-      <th><%= model_class.human_attribute_name(:last_name) %></th>
-      <th><%= model_class.human_attribute_name(:type) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:total_questions) %></th>
+      <th><%= model_class.human_attribute_name(:weight) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
-    <% @users.each do |user| %>
+    <% @assessments.each do |assessment| %>
       <tr>
-        <td><%= link_to user.id, user_path(user) %></td>
-        <td><%= user.user_name %></td>
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
-        <td><%= user.type %></td>
-        <td><%=l user.created_at %></td>
+        <td><%= link_to assessment.id, assessment_path(assessment) %></td>
+        <td><%= assessment.name %></td>
+        <td><%= assessment.questions.count %></td>
+        <td><%= assessment.weight %></td>
+        <td><%=l assessment.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_user_path(user), :class => 'btn btn-default btn-xs' %>
+                      edit_assessment_path(assessment), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      user_path(user),
+                      assessment_path(assessment),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
@@ -38,5 +36,5 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_user_path,
+            new_assessment_path,
             :class => 'btn btn-primary' %>

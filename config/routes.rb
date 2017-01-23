@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
-  resources :users
+  resources :options
+
+  resources :questions
+
+  resources :assessments do
+    resources :questions
+  end
+
+  resources :users do
+    collection do
+      resources :assessments
+    end
+
+
+  end
   resources :teachers
   resources :students
 
