@@ -1,0 +1,15 @@
+  <%= f.label :"question", :class => 'control-label col-lg-3' %>
+  
+  <div class="col-lg-6">
+  <div class="col-lg-1">
+  </div>
+  <div class="col-lg-10">
+		<%= f.text_field :text, :class => 'form-control' %>
+  	<%= f.hidden_field :id %>
+  </div>
+  </div>
+		<%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_question_path(f.object.id), :class => 'btn btn-default btn-xs' %>
+		<%= f.hidden_field :_destroy %>
+  	<%= link_to "remove", '#', onclick: "remove_fields(this); return false", :class => 'btn btn-xs btn-danger' %>
+		
