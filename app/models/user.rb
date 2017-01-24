@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+	has_many :attempts
+	has_many :assessments, :through => :attempts
+	
 
   def email_required?
     false
@@ -12,5 +15,9 @@ class User < ActiveRecord::Base
   def email_changed?
     false
   end
-  
+
+  def name
+  	"#{first_name} #{last_name}".titleize
+  end
+
 end

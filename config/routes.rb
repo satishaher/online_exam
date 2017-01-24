@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users
   resources :options
 
@@ -8,21 +9,32 @@ Rails.application.routes.draw do
     resources :questions
   end
 
-  resources :users do
+  resources :users, :controller => 'users' do
     collection do
       resources :assessments
     end
 
 
+  end 
+  
+  resources :teachers do
+    collection do
+      get :my_students
+    end
   end
-  resources :teachers
-  resources :students
+  
+  resources :students do
+    collection do
+      get :live_assessments
+    end
+    resources :attempt_tests
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'assessments#index'
+  root 'welcomes#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

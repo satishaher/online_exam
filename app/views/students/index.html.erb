@@ -1,6 +1,15 @@
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><h4><%= "Teacher Name:  #{@teacher.name} <#{@teacher.user_name}>"%></th>
+    </tr>
+  </thead>
+</table>
+
 <%- model_class = Assessment -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h4><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %> (live)</h4>
 </div>
 <table class="table table-striped">
   <thead>
@@ -26,6 +35,8 @@
         <td><%= assessment.end_date.to_date_time %></td>
         <td><%= assessment.created_at.to_date_time %></td>
         <td>
+        <%= link_to t('.edit', :default => t("helpers.links.attempt_test")),
+                      student_attempt_test_path(current_user,assessment), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_assessment_path(assessment), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -36,9 +47,12 @@
         </td>
       </tr>
     <% end %>
+    <% if @assessments.blank? %>
+      <tr> 
+        <td align="center" colspan="10">No Live Assessment Available</td>
+      </tr>
+    <% end %>
+
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_assessment_path,
-            :class => 'btn btn-primary' %>

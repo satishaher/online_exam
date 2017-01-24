@@ -1,0 +1,5 @@
+<%= @question.text %>
+<% @question.options.each_with_index do |opt,index| %>
+<br>
+<%= "#{index+1}. #{opt.text}" %>
+<% end %>

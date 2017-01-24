@@ -4,7 +4,7 @@ class AssessmentsController < ApplicationController
   # GET /assessments
   # GET /assessments.json
   def index
-    @assessments = Assessment.all
+    @assessments = current_user.assessments
   end
 
   # GET /assessments/1
@@ -24,7 +24,7 @@ class AssessmentsController < ApplicationController
   # POST /assessments
   # POST /assessments.json
   def create
-    @assessment = Assessment.new(assessment_params)
+    @assessment = Assessment.new({user_id: current_user.id}.merge(assessment_params))
 
     respond_to do |format|
       if @assessment.save
@@ -41,7 +41,7 @@ class AssessmentsController < ApplicationController
   # PATCH/PUT /assessments/1.json
   def update
     respond_to do |format|
-      if @assessment.update(assessment_params)
+      if @assessment.update({user_id: current_user.id}.merge(assessment_params))
         format.html { redirect_to assessments_path, notice: 'Assessment was successfully updated.' }
         format.json { render :show, status: :ok, location: @assessment }
       else
@@ -69,7 +69,7 @@ class AssessmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assessment_params
-      params.require(:assessment).permit(:name, :weight, {questions_attributes: [:id, :text, :rating, :_destroy]})
+      params.require(:assessment).permit(:name, :weight, :start_date, :end_date, {questions_attributes: [:id, :text, :rating, :_destroy]})
     end
 
 end
