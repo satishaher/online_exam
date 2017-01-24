@@ -2,7 +2,11 @@
 <table class="table table-striped">
   <thead>
     <tr>
+    <% if @teacher.present? %>
       <th><h4><%= "Teacher Name:  #{@teacher.name} <#{@teacher.user_name}>"%></th>
+      <% else %>
+      <th><h4><%= "Teacher not assigned to student."%></th>
+      <% end %>
     </tr>
   </thead>
 </table>

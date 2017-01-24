@@ -2,7 +2,11 @@ class StudentsController < ApplicationController
   
   def index
   	@teacher = current_user.teacher	
-  	@assessments = @teacher.assessments.live	
+  	if @teacher.present? 
+  		@assessments = @teacher.assessments.live
+  	else
+  		@assessments = []
+  	end 
   end
 
   def live_assessments
